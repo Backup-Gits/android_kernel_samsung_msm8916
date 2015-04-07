@@ -152,6 +152,7 @@ config ARCH_MSM8916
 	select MSM_RPM_LOG
 	select MSM_JTAGV8 if CORESIGHT_ETMV4
 	select RCU_BOOST if DEBUG_KMEMLEAK
+	select HAS_MACH_MEMUTILS
 
 config ARCH_MSM8929
 	bool "MSM8929"
@@ -2012,5 +2013,11 @@ config BARCODE_PAINTER
 config SAMSUNG_PRODUCT_SHIP
         bool "set up for product shipping"
         default n
+
+config HAS_MACH_MEMUTILS
+	default n
+	bool "Motorola MSM memcpy enhancements"
+	help
+	Faster memcpy performance for MSM8916.
 
 endif
