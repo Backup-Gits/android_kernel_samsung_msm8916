@@ -590,6 +590,10 @@ config AUTOSMP
 	  Automatically hotplugs the multiple cpu cores on and off
 	  based on cpu load and suspend state
 
+config STATE_HELPER
+        bool "State Helper"
+	depends on STATE_NOTIFIER
+
 source "drivers/soc/qcom/memshare/Kconfig"
 
 source "drivers/soc/qcom/samsung/Kconfig"
