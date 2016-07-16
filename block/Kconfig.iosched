@@ -90,6 +90,10 @@ config IOSCHED_SIOPLUS
 	the starvation of async reads against sync reads; starved write requests counter
 	only counts when there actually are write requests in the queue; fixed a bug).
 
+config IOSCHED_MAPLE
+	tristate "Maple I/O scheduler"
+	default y
+
 config IOSCHED_CFQ
 	tristate "CFQ I/O scheduler"
 	default y
@@ -156,6 +160,9 @@ choice
 	config DEFAULT_VR
 		bool "VR"
 
+	config DEFAULT_MAPLE
+		bool "Maple" if IOSCHED_MAPLE=y
+
 	config DEFAULT_SIOPLUS
 		bool "SIOPLUS"
 
@@ -176,6 +183,7 @@ config DEFAULT_IOSCHED
 	default "fifo" if DEFAULT_FIFO
 	default "vr" if DEFAULT_VR
 	default "sioplus" if DEFAULT_SIOPLUS
+	default "maple" if DEFAULT_MAPLE
 
 endmenu
 
