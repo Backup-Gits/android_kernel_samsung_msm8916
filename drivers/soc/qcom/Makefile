@@ -84,3 +84,7 @@ obj-y		+= samsung/
 
 obj-$(CONFIG_STATE_NOTIFIER)	+= state_notifier.o
 obj-$(CONFIG_MSM_LIMITER)       += msm_limiter.o
+obj-$(CONFIG_STATE_NOTIFIER)		+= state_notifier.o
+obj-$(CONFIG_STATE_HELPER)		+= state_helper.o
+
+obj-$(CONFIG_AUTOSMP)			+= autosmp.o
