@@ -249,6 +249,7 @@ config SENSORS_FP_SPI_GPIO_END
 source "drivers/pinctrl/mvebu/Kconfig"
 source "drivers/pinctrl/sh-pfc/Kconfig"
 source "drivers/pinctrl/spear/Kconfig"
+source "drivers/pinctrl/qcom/Kconfig"
 source "drivers/pinctrl/vt8500/Kconfig"
 
 config PINCTRL_XWAY
