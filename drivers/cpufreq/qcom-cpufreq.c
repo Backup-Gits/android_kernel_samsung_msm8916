@@ -63,35 +63,6 @@ struct jig_limit_info
 	unsigned long long end_time;
 };
 
-static struct jig_limit_info jlc_info = {
-#if defined(CONFIG_SEC_A7_PROJECT)
-	// ~160s : B998+L998 Mhz
-	160, 160, 0, 0, 0, 50,
-	{ 998400, 0, 0},
-	{ 998400, 0, 0},
-#elif defined(CONFIG_MACH_J7_USA_SPR)
-	// ~160s : B499+L499 Mhz
-	160, 160, 0, 0, 0, 50,
-	{ 499200, 0, 0},
-	{ 499200, 0, 0},
-#elif defined(CONFIG_SEC_A8_PROJECT)
-/*	1. ~ bootcomplete : B960+L800Mhz
-	2. ~ bootcomplete+120s : B806+L800Mhz
-	3. ~ bootcomplete+370s : B1113+L998Mhz
-	if bootcomplete is under 50s, 
-	it will ignore step 2,3 because of normal booting */
-	500, 50, 1, 120, 250, 50,
-	{ 960000, 806400, 1113600 },
-	{ 800000, 800000, 998400 },
-#else
-	// ~50s : B960+L998 Mhz
-	50, 50, 0, 0, 0, 50,
-	{ 960000, 0, 0},
-	{ 998400, 0, 0},
-#endif
-	0, 0LLU
-};
-
 extern int jig_boot_clk_limit;
 
 void bootcomplete_notify(void)
