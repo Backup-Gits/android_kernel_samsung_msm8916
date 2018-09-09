@@ -385,6 +385,10 @@
 		qcom,src-dst-ports = <1 512>;
 		qcom,active-only;
 		qcom,bw-tbl =
+		/*
+		 * Need to configure 2x Clock as BIMC
+		 * Internally Divides by 2 for Gen1 DDR PHY.
+		 */
 			<   769 /*  100.8 MHz */ >,
 			<  1611 /*  211.2 MHz */ >,
 			<  2270 /*  297.6 MHz */ >,	/*SVS */
