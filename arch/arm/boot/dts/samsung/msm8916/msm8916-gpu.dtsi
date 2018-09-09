@@ -80,6 +80,9 @@
 		/* CPU latency parameter */
 		qcom,pm-qos-latency = <701>;
 
+        /* Enable Per Object Post Processing*/
+        qcom,popp-enable;
+
 		/* Power levels */
 		qcom,gpu-pwrlevels {
 			#address-cells = <1>;
