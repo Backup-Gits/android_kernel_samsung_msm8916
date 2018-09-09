@@ -12,11 +12,8 @@ obj-$(CONFIG_BLK_DEV_BSG)	+= bsg.o
 obj-$(CONFIG_BLK_DEV_BSGLIB)	+= bsg-lib.o
 obj-$(CONFIG_BLK_CGROUP)	+= blk-cgroup.o
 obj-$(CONFIG_BLK_DEV_THROTTLING)	+= blk-throttle.o
-<<<<<<< HEAD
-=======
 obj-$(CONFIG_IOSCHED_FIOPS)     += fiops-iosched.o
 obj-$(CONFIG_IOSCHED_MAPLE)	+= maple-iosched.o
->>>>>>> 0bec4216ed01... block: Add Maple I/O Scheduler
 obj-$(CONFIG_IOSCHED_NOOP)	+= noop-iosched.o
 obj-$(CONFIG_IOSCHED_DEADLINE)	+= deadline-iosched.o
 obj-$(CONFIG_IOSCHED_ROW)	+= row-iosched.o
