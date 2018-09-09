@@ -47,14 +47,21 @@
 				"gtcu_iface_clk";
 
 		/* Bus Scale Settings */
+		qcom,bus-control;
+		qcom,bus-width = <16>;
 		qcom,msm-bus,name = "grp3d";
-		qcom,msm-bus,num-cases = <4>;
+		qcom,msm-bus,num-cases = <9>;
 		qcom,msm-bus,num-paths = <1>;
 		qcom,msm-bus,vectors-KBps =
-			<26 512 0 0>,
-			<26 512 400000 1600000>,
-			<26 512 800000 3200000>,
-			<26 512 1066000 4264000>;
+				<26 512 0 0>,	    /*    off        */
+				<26 512 0  1612800>, /* 1. 100.80 MHz */
+				<26 512 0  3379200>, /* 2. 211.20 MHz */
+				<26 512 0  4761600>, /* 3. 297.60 MHz */
+				<26 512 0  6144000>, /* 4. 384.00 MHz */
+				<26 512 0  8908800>, /* 5. 556.80 MHz */
+				<26 512 0  9523200>, /* 6. 595.20 MHz */
+				<26 512 0 10752000>, /* 7. 672.00 MHz */
+				<26 512 0 11827200>; /* 8. 739.20 MHz */
 
 		/* GDSC oxili regulators */
 		vdd-supply = <&gdsc_oxili_gx>;
