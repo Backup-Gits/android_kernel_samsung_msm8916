@@ -389,14 +389,23 @@
 		 * Need to configure 2x Clock as BIMC
 		 * Internally Divides by 2 for Gen1 DDR PHY.
 		 */
+			< 0 >,    /* Off */
 			<   769 /*  100.8 MHz */ >,
+			< 1538 >, /* 1. DDR:100.80 MHz BIMC: 201.60 MHz */
 			<  1611 /*  211.2 MHz */ >,
 			<  2270 /*  297.6 MHz */ >,	/*SVS */
 			<  2929 /*  384   MHz */ >,
+			< 3222 >, /* 2. DDR:211.20 MHz BIMC: 422.40 MHz */
 			<  4248 /*  556.8 MHz */ >,	/*SVS+*/
+			< 4541 >, /* 3. DDR:297.60 MHz BIMC: 595.20 MHz */
 			<  4541 /*  595.2 MHz */ >,	/*NOM*/
 			<  5126 /*  672   MHz */ >,	/*NOM+*/
-			<  5645 /*  740   MHz */ >;	/*TURBO*/
+			<  5645 /*  740   MHz */ >,	/*TURBO*/
+			< 5859 >, /* 4. DDR:384.00 MHz BIMC: 768.00 MHz */
+			< 8496 >, /* 5. DDR:556.80 MHz BIMC: 1113.60 MHz */
+			< 9082 >, /* 6. DDR:595.20 MHz BIMC: 1190.40 MHz */
+			< 10253>, /* 7. DDR:672.00 MHz BIMC: 1344.00 MHz */
+			< 11279>; /* 8. DDR:739.20 MHz BIMC: 1478.40 MHz */
 		qcom,ab-percent = < 30 >;
 	};
 
