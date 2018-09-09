@@ -13,7 +13,7 @@
 &soc {
 	msm_gpu: qcom,kgsl-3d0@01c00000 {
 		label = "kgsl-3d0";
-		compatible = "qcom,kgsl-3d0", "qcom,kgsl-3d";
+		compatible = "qcom,kgsl-3d0", "qcom,kgsl-3d", "qcom,devbw";
 		reg = <0x01c00000 0x10000
 		       0x01c10000 0x10000>;
 		reg-names = "kgsl_3d0_reg_memory" , "kgsl_3d0_shader_memory";
