@@ -26,8 +26,10 @@
 		qcom,initial-pwrlevel = <1>;
 
 		/* Idle Timeout = HZ/12 */
-		qcom,idle-timeout = <8>;
+		qcom,idle-timeout = <80>; //msecs
+		qcom,deep-nap-timeout = <100>; //msecs
 		qcom,strtstp-sleepwake;
+		qcom,gpu-bimc-interface-clk-freq = <400000000>; //In Hz
 
 		/*
 		 * Clocks = KGSL_CLK_CORE | KGSL_CLK_IFACE | KGSL_CLK_MEM |
