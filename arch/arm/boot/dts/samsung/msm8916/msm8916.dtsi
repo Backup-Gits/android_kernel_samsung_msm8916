@@ -706,10 +706,10 @@
 			 <&clock_gcc clk_gcc_sdcc1_apps_clk>;
 		clock-names = "iface_clk", "core_clk";
 
-		qcom,clk-rates = <400000 25000000 50000000 100000000 177770000>;
+		qcom,clk-rates = <400000 25000000 50000000 100000000 200000000>;
 		qcom,bus-speed-mode = "HS200_1p8v", "DDR_1p8v";
 
-		status = "disabled";
+		status = "okay";
 	};
 
 	sdhc_2: sdhci@07864000 {
@@ -742,7 +742,7 @@
 
 		qcom,clk-rates = <400000 25000000 50000000 100000000 200000000>;
 
-		status = "disabled";
+		status = "okay";
 	};
 
 	qcom,ipc-spinlock@1905000 {
