@@ -435,6 +435,7 @@
 	qcom,msm-cpufreq {
 		reg = <0 4>;
 		compatible = "qcom,msm-cpufreq";
+		qcom,governor-per-policy = "cpufreq";
 		clocks = <&clock_cpu  clk_a7ssmux>,
 			 <&clock_cpu  clk_a7ssmux>,
 			 <&clock_cpu  clk_a7ssmux>,
