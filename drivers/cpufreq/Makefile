@@ -5,13 +5,9 @@ obj-$(CONFIG_CPU_FREQ_STAT)             += cpufreq_stats.o
 # CPUfreq limit
 obj-$(CONFIG_CPU_FREQ_LIMIT)		+= cpufreq_limit.o
 
-<<<<<<< HEAD
 # CPUfreq governors 
 obj-$(CONFIG_CPU_FREQ_GOV_BLU_ACTIVE)   += cpufreq_blu_active.o
 obj-$(CONFIG_CPU_FREQ_GOV_CHILL)        += cpufreq_chill.o
-=======
-# CPUfreq governors
->>>>>>> c13c395b84da6... cpufreq: Add latest impulse governor
 obj-$(CONFIG_CPU_FREQ_GOV_PERFORMANCE)	+= cpufreq_performance.o
 obj-$(CONFIG_CPU_FREQ_GOV_POWERSAVE)	+= cpufreq_powersave.o
 obj-$(CONFIG_CPU_FREQ_GOV_RELAXED)      += cpufreq_relaxed.o
