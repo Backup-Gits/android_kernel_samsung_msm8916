@@ -1680,7 +1680,7 @@
 					"bus_clk", "scm_core_clk",
 					"scm_iface_clk", "scm_bus_clk",
 					"scm_core_clk_src";
-		qcom,scm_core_clk_src-freq = <80000000>;
+		qcom,scm_core_clk_src-freq = <160000000>;
 
 		qcom,pas-id = <9>;
 		qcom,proxy-timeout-ms = <100>;
@@ -1883,7 +1883,7 @@
 				"scm_bus_clk", "scm_core_clk_src";
 		qcom,proxy-clock-names = "xo", "scm_core_clk", "scm_iface_clk",
 					"scm_bus_clk", "scm_core_clk_src";
-		qcom,scm_core_clk_src-freq = <80000000>;
+		qcom,scm_core_clk_src-freq = <160000000>;
 
 		qcom,pas-id = <6>;
 		qcom,proxy-timeout-ms = <10000>;
@@ -1935,7 +1935,7 @@
 			 <&clock_gcc clk_gcc_crypto_axi_clk>;
 		clock-names = "core_clk_src", "core_clk",
 				"iface_clk", "bus_clk";
-		qcom,ce-opp-freq = <100000000>;
+		qcom,ce-opp-freq = <160000000>;
 	};
 };
 
