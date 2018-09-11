@@ -58,7 +58,7 @@ echo -n "SEANDROIDENFORCE" >> $(pwd)/kernel-out/zip/dragon/kernel/boot.img
 cp -r $(pwd)/dragon/META-INF $(pwd)/kernel-out/zip/
 cp -r $(pwd)/dragon/libsecure $(pwd)/kernel-out/zip/dragon/modules/
 cp -r $(pwd)/dragon/libsecure_jni $(pwd)/kernel-out/zip/dragon/modules/
-cp -r $(pwd)/dragon/wlan $(pwd)/kernel-out/zip/dragon/modules/
+cp -r $(pwd)/output/drivers/staging/prima/wlan.ko $(pwd)/kernel-out/zip/dragon/modules/wlan
 cd kernel-out/zip
 zip -r -9 - * > ../"DRAGON-SMJ510FN-$S_VERSION-$S_DATE.zip"
 cd ../../
