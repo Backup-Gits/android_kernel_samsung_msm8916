@@ -575,7 +575,7 @@ static struct rcg_clk vfe0_clk_src = {
 	},
 };
 
-static struct clk_freq_tbl ftbl_gcc_oxili_gfx3d_465_clk[] = {
+static struct clk_freq_tbl ftbl_gcc_oxili_gfx3d_8916_clk[] = {
 	F(  19200000,	      xo,   1,	  0,	0),
 	F(  50000000,  gpll0_aux,  16,	  0,	0),
 	F(  80000000,  gpll0_aux,  10,	  0,	0),
