@@ -2,6 +2,7 @@
 ui_print("-- Mounting partitions");
 ifelse(is_mounted("/system"), unmount("/system"));
 mount("ext4", "EMMC", "/dev/block/bootdevice/by-name/system", "/system");
+delete_recursive ("/system/etc/init.qcom.post_boot.sh");
 delete_recursive ("/system/app/SwitchKnoxI");
 delete_recursive ("/system/app/SwitchKnoxII");
 delete_recursive ("/system/app/KnoxFolderContainer");
