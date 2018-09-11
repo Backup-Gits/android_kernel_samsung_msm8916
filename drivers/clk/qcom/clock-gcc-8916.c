@@ -594,7 +594,7 @@ static struct clk_freq_tbl ftbl_gcc_oxili_gfx3d_8916_clk[] = {
 static struct rcg_clk gfx3d_clk_src = {
 	.cmd_rcgr_reg = GFX3D_CMD_RCGR,
 	.set_rate = set_rate_hid,
-	.freq_tbl = ftbl_gcc_oxili_gfx3d_clk,
+	.freq_tbl = ftbl_gcc_oxili_gfx3d_8916_clk,
 	.current_freq = &rcg_dummy_freq,
 	.base = &virt_bases[GCC_BASE],
 	.c = {
@@ -2790,7 +2790,7 @@ static void gcc_gfx3d_fmax(struct platform_device *pdev)
 					bin);
 
 	gfx3d_clk_src.c.fmax[VDD_DIG_HIGH] = 465000000;
-	gfx3d_clk_src.freq_tbl = ftbl_gcc_oxili_gfx3d_465_clk;
+	gfx3d_clk_src.freq_tbl = ftbl_gcc_oxili_gfx3d_8916_clk;
 }
 
 static int msm_gcc_probe(struct platform_device *pdev)
