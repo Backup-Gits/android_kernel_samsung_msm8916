@@ -611,7 +611,7 @@ case "$target" in
 		# disable thermal core_control to update scaling_min_freq
                 echo 0 > /sys/module/msm_thermal/core_control/enabled
                 echo 1 > /sys/devices/system/cpu/cpu0/online
-                echo "interactive" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+                echo "blu_active" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
                 chown -h system.system /sys/devices/system/cpu/cpufreq/interactive/above_hispeed_delay
                 chown -h system.system /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load
                 chown -h system.system /sys/devices/system/cpu/cpufreq/interactive/timer_rate
@@ -632,19 +632,12 @@ case "$target" in
                 chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/sampling_down_factor
                 chmod 0660 /sys/class/devfreq/0.qcom,cpubw/min_freq
                 chmod 0660 /sys/class/devfreq/0.qcom,cpubw/max_freq
-                echo 100000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
+                echo 200000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
                 # enable thermal core_control now
                 echo 1 > /sys/module/msm_thermal/core_control/enabled
 
 				# Serenity tweaks
-                echo "25000 1094400:50000" > /sys/devices/system/cpu/cpufreq/interactive/above_hispeed_delay
-                echo 90 > /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load
-                echo 30000 > /sys/devices/system/cpu/cpufreq/interactive/timer_rate
-                echo 533333 > /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq
-                echo 0 > /sys/devices/system/cpu/cpufreq/interactive/io_is_busy
-                echo "1 100000:10 200000:20 400000:35 533330:45 800000:55 998400:65 1094400:80 1190400:95" > /sys/devices/system/cpu/cpufreq/interactive/target_loads
-                echo 50000 > /sys/devices/system/cpu/cpufreq/interactive/min_sample_time
-                echo 50000 > /sys/devices/system/cpu/cpufreq/interactive/sampling_down_factor
+                echo 533333 > /sys/devices/system/cpu/cpufreq/blu_active/hispeed_freq
                 echo 40 > /sys/class/kgsl/kgsl-3d0/idle_timer
 
 				# ADRENO 306 optimization #SUPERNOVA
@@ -652,13 +645,31 @@ case "$target" in
                 echo "1" > /sys/class/kgsl/kgsl-3d0/wake_nice
                 echo "10" > /sys/class/kgsl/kgsl-3d0/wake_timeout
                 echo "0" > /sys/class/kgsl/kgsl-3d0/bus_split
-                echo "1" > /sys/class/kgsl/kgsl-3d0/force_bus_on
-                echo "1" > /sys/class/kgsl/kgsl-3d0/force_rail_on
-                echo "1" > /sys/class/kgsl/kgsl-3d0/force_clk_on
+                echo "0" > /sys/class/kgsl/kgsl-3d0/force_bus_on
+                echo "0" > /sys/class/kgsl/kgsl-3d0/force_rail_on
+                echo "0" > /sys/class/kgsl/kgsl-3d0/force_clk_on
                 echo "40" > /sys/class/kgsl/kgsl-3d0/idle_timer
                 echo %i > /sys/class/kgsl/kgsl-3d0/devfreq/max_freq
                 echo %i > /sys/class/kgsl/kgsl-3d0/devfreq/min_freq
                 echo %i > /sys/class/kgsl/kgsl-3d0/devfreq/target_freq
+
+				# General Optimization #DRAGON
+                echo 200 250 555 1000 1005 1100 1125 1220 1273 > /sys/devices/system/cpu/cpu0/cpufreq/UV_mV_table
+                echo 1750 > /sys/devices/battery.84/wc_charge
+                echo 850 > /sys/devices/battery.84/wc_input
+                echo Y > /sys/module/autosmp/parameters/enabled
+                echo 1 > /sys/module/msm_thermal/vdd_restriction/enabled
+                echo 1 > /sys/kernel/sound_control_3/gpl_mic_gain
+                echo 1 254 > /sys/kernel/sound_control_3/gpl_mic_gain
+                echo 1 1 > /sys/kernel/sound_control_3/gpl_speaker_gain
+                echo 1 1 253 > /sys/kernel/sound_control_3/gpl_speaker_gain
+                echo 256 > /sys/module/lowmemorykiller/parameters/minfree
+                echo 1 > /proc/sys/vm/laptop_mode
+                echo 256 > /proc/sys/kernel/random/write_wakeup_threshold
+                echo 128 > /proc/sys/kernel/random/read_wakeup_threshold
+                echo 1 > /sys/module/msm_thermal/parameters/temp_safety
+                echo Y > /sys/module/msm_thermal/parameters/immediately_limit_stop
+                echo Y > /sys/module/msm_thermal/parameters/enabled
 
 				### added Enable sched guided freq control
                 echo 1 > /sys/devices/system/cpu/cpufreq/interactive/use_sched_load
