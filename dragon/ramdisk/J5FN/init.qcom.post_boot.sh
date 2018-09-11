@@ -670,6 +670,11 @@ case "$target" in
                 echo 1 > /sys/module/msm_thermal/parameters/temp_safety
                 echo Y > /sys/module/msm_thermal/parameters/immediately_limit_stop
                 echo Y > /sys/module/msm_thermal/parameters/enabled
+                echo "536870912" > /sys/block/zram0/disksize
+                mkswap /dev/block/zram0
+                swapon /dev/block/zram0
+                echo "100" > /proc/sys/vm/swappiness
+
 
 				### added Enable sched guided freq control
                 echo 1 > /sys/devices/system/cpu/cpufreq/interactive/use_sched_load
