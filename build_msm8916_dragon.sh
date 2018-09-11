@@ -5,12 +5,16 @@ rm -rf $(pwd)/kernel-out
 make clean
 make mrproper
 
+# Built info
+S_VERSION=v1
+S_DATE=$(date +%Y%m%d)
+
 # Build the zImage
 export ARCH=arm
 export CROSS_COMPILE=$(pwd)/dragon/gcc-linaro-4.9.4-2017.01-x86_64_arm-eabi/bin/arm-eabi-
 mkdir -p output kernel-out/pack/rd kernel-out/zip/dragon/modules kernel-out/zip/dragon/kernel
 make -C $(pwd) O=output msm8916_sec_defconfig VARIANT_DEFCONFIG=msm8916_sec_j5xlte_eur_defconfig SELINUX_DEFCONFIG=selinux_defconfig
-make -j2 -C $(pwd) O=output
+make -j`grep processor /proc/cpuinfo|wc -l` -C $(pwd) O=output
 
 # copy the built zImage
 cp output/arch/arm/boot/zImage $(pwd)/kernel-out/pack/zImage
@@ -56,7 +60,7 @@ cp -r $(pwd)/dragon/libsecure $(pwd)/kernel-out/zip/dragon/modules/
 cp -r $(pwd)/dragon/libsecure_jni $(pwd)/kernel-out/zip/dragon/modules/
 cp -r $(pwd)/dragon/wlan $(pwd)/kernel-out/zip/dragon/modules/
 cd kernel-out/zip
-zip -r -9 - * > ../"DRAGON-SM-J510FN.zip"
+zip -r -9 - * > ../"DRAGON-SMJ510FN-$S_VERSION-$S_DATE.zip"
 cd ../../
 
 # END
