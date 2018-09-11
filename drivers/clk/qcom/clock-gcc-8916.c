@@ -2809,10 +2809,10 @@ static void gcc_gfx3d_fmax(struct platform_device *pdev)
 	pr_info("%s, Version: %d, bin: %d\n", __func__, version,
 					bin);
 
-	gfx3d_clk_src.c.fmax[VDD_DIG_NONE] = ;
-	gfx3d_clk_src.c.fmax[VDD_DIG_LOW] = ;
-	gfx3d_clk_src.c.fmax[VDD_DIG_NOMINAL] = ;
-	gfx3d_clk_src.c.fmax[VDD_DIG_HIGH] = 465000000;
+	gfx3d_clk_src.c.fmax[VDD_DIG_NONE] = 160000;
+	gfx3d_clk_src.c.fmax[VDD_DIG_LOW] = 200000000;
+	gfx3d_clk_src.c.fmax[VDD_DIG_NOMINAL] = 310000000;
+	gfx3d_clk_src.c.fmax[VDD_DIG_HIGH] = 620000000;
 	gfx3d_clk_src.freq_tbl = ftbl_gcc_oxili_gfx3d_8916_clk;
 }
 
