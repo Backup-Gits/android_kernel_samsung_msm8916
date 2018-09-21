@@ -389,6 +389,7 @@ static struct pll_clk a53sspll = {
 		.fmax = (unsigned long [VDD_SR2_PLL_NUM]) {
 			[VDD_SR2_PLL_SVS] = 900000000,
 			[VDD_SR2_PLL_NOM] = 1365000000,
+			[VDD_SR2_PLL_TUR] = 1368000000,
 		},
 		.num_fmax = VDD_SR2_PLL_NUM,
 		CLK_INIT(a53sspll.c),
