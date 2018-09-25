@@ -568,6 +568,11 @@ static struct clk_freq_tbl ftbl_gcc_camss_vfe0_clk[] = {
 	F( 320000000,	   gpll0, 2.5,	  0,	0),
 	F( 400000000,	   gpll0,   2,	  0,	0),
 	F( 465000000,	   gpll2,   2,	  0,	0),
+	F( 489473684,	   gpll2, 1.9,	  0,	0),
+	F( 516666666,	   gpll2, 1.8,	  0,	0),
+	F( 547058823,	   gpll2, 1.7,	  0,	0),
+	F( 581250000,	   gpll2, 1.6,	  0,	0),
+	F( 620000000,	   gpll2, 1.5,	  0,	0),
 	F_END
 };
 
@@ -581,7 +586,7 @@ static struct rcg_clk vfe0_clk_src = {
 		.dbg_name = "vfe0_clk_src",
 		.ops = &clk_ops_rcg,
 		VDD_DIG_FMAX_MAP3(LOW, 160000000, NOMINAL, 320000000, HIGH,
-			465000000),
+			620000000),
 		CLK_INIT(vfe0_clk_src.c),
 	},
 };
