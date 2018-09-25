@@ -653,7 +653,6 @@ case "$target" in
                 echo %i > /sys/class/kgsl/kgsl-3d0/devfreq/target_freq
 
 				# General Optimization #DRAGON
-                echo "20 50 60 850 890 900 1180 1190 1200 1250" > /sys/devices/system/cpu/cpu0/cpufreq/UV_mV_table
                 echo 1750 > /sys/devices/battery.84/wc_charge
                 echo 850 > /sys/devices/battery.84/wc_input
                 echo Y > /sys/module/autosmp/parameters/enabled
