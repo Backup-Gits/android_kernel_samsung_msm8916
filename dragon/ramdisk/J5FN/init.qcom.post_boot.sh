@@ -641,7 +641,6 @@ case "$target" in
                 echo 40 > /sys/class/kgsl/kgsl-3d0/idle_timer
 
 				# ADRENO 306 optimization #SUPERNOVA
-                echo "465000000" > /sys/class/kgsl/kgsl-3d0/max_gpuclk
                 echo "1" > /sys/class/kgsl/kgsl-3d0/wake_nice
                 echo "10" > /sys/class/kgsl/kgsl-3d0/wake_timeout
                 echo "0" > /sys/class/kgsl/kgsl-3d0/bus_split
@@ -654,15 +653,11 @@ case "$target" in
                 echo %i > /sys/class/kgsl/kgsl-3d0/devfreq/target_freq
 
 				# General Optimization #DRAGON
-                echo 200 250 555 1000 1005 1100 1125 1220 1273 > /sys/devices/system/cpu/cpu0/cpufreq/UV_mV_table
+                echo "20 50 60 850 890 900 1180 1190 1200 1250" > /sys/devices/system/cpu/cpu0/cpufreq/UV_mV_table
                 echo 1750 > /sys/devices/battery.84/wc_charge
                 echo 850 > /sys/devices/battery.84/wc_input
                 echo Y > /sys/module/autosmp/parameters/enabled
                 echo 1 > /sys/module/msm_thermal/vdd_restriction/enabled
-                echo 1 > /sys/kernel/sound_control_3/gpl_mic_gain
-                echo 1 254 > /sys/kernel/sound_control_3/gpl_mic_gain
-                echo 1 1 > /sys/kernel/sound_control_3/gpl_speaker_gain
-                echo 1 1 253 > /sys/kernel/sound_control_3/gpl_speaker_gain
                 echo 256 > /sys/module/lowmemorykiller/parameters/minfree
                 echo 1 > /proc/sys/vm/laptop_mode
                 echo 256 > /proc/sys/kernel/random/write_wakeup_threshold
@@ -670,11 +665,6 @@ case "$target" in
                 echo 1 > /sys/module/msm_thermal/parameters/temp_safety
                 echo Y > /sys/module/msm_thermal/parameters/immediately_limit_stop
                 echo Y > /sys/module/msm_thermal/parameters/enabled
-                echo "536870912" > /sys/block/zram0/disksize
-                mkswap /dev/block/zram0
-                swapon /dev/block/zram0
-                echo "100" > /proc/sys/vm/swappiness
-
 
 				### added Enable sched guided freq control
                 echo 1 > /sys/devices/system/cpu/cpufreq/interactive/use_sched_load
@@ -1658,11 +1648,7 @@ renice -n -20 $PPID
 PPID=$(pidof com.samsung.android.incallui)
 echo "-17" > /proc/$PPID/oom_adj
 renice -n -20 $PPID
-echo 'row' > /sys/block/mmcblk0/queue/scheduler #enable row i/o scheduler 
 
-#SUPERNOVA tweaks
-# insmod /system/lib/modules/tcp_westwood.ko  #  cubic bic reno westwood
-echo cubic > /proc/sys/net/ipv4/tcp_congestion_control
 # cat /proc/sys/kernel/random/entropy_avail  must be > 1000
 echo 64 > /proc/sys/kernel/random/read_wakeup_threshold  #(64)
 echo 128 > /proc/sys/kernel/random/write_wakeup_threshold #(128)
@@ -1721,16 +1707,6 @@ echo 256 > /sys/devices/soc.0/7824900.sdhci/mmc_host/mmc0/mmc0:0001/block/mmcblk
 #busybox find /sys -name read_ahead_kb -exec sh -c "echo 256 > {}" \; #(128) (64*4KB blocks)
 #busybox find /sys/fs/ext4 -name inode_readahead_blks -exec sh -c "echo 64 > {}" \; #(32)
 
-# Input cpu freq booster
-#/sys/devices/virtual/input_booster/hover key keyboard mouse mouse_wheel multitouch pen touch touchkey
-# per folder like ./freq: 2 1190400 0|3 998400 0 ./level: 2
-#echo 3 > /sys/devices/virtual/input_booster/touch/level # 2 1190400 0|3 998400 0
-#echo 2 > /sys/devices/virtual/input_booster/hover/level # 1 1190400 0|2 998400 0
-#echo 2 > /sys/devices/virtual/input_booster/multitouch/level # 1 1190400 0|2 1190400 0
-echo "200 998400 0" > /sys/class/input_booster/head # "200 1190400 0"
-echo "0 998400 0" > /sys/class/input_booster/tail # "0 1190400 0"
-echo 3 > /sys/class/input_booster/level
-
 # increase digital playback volume from 84, also see /etc/mixer_paths_qrd_sku1.xml
 tinymix "RX1 Digital Volume" 92 # 88
 tinymix "RX2 Digital Volume" 92 # 88
@@ -1741,7 +1717,6 @@ tinymix "DEC2 Volume" 88
 # high quality sampling, audio.primary.msm8937.so will set it right
 #tinymix "MI2S_RX Format" S24_3LE
 #tinymix "MI2S_RX SampleRate" KHZ_192
-
 
 # check current : /sys/class/power_supply/battery/input_current_now
 # USB charging little higher
