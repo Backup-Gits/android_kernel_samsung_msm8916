@@ -6,7 +6,7 @@ make clean
 make mrproper
 
 # Built info
-S_VERSION=v1
+S_VERSION=V1.2
 S_DATE=$(date +%Y%m%d)
 
 # Build the zImage
