@@ -1680,7 +1680,7 @@
 					"bus_clk", "scm_core_clk",
 					"scm_iface_clk", "scm_bus_clk",
 					"scm_core_clk_src";
-		qcom,scm_core_clk_src-freq = <160000000>;
+		qcom,scm_core_clk_src-freq = <266666666>;
 
 		qcom,pas-id = <9>;
 		qcom,proxy-timeout-ms = <100>;
