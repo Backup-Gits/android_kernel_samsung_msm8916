@@ -645,6 +645,17 @@ case "$target" in
                 echo 50000 > /sys/devices/system/cpu/cpufreq/interactive/min_sample_time
                 echo 50000 > /sys/devices/system/cpu/cpufreq/interactive/sampling_down_factor
                 echo 40 > /sys/class/kgsl/kgsl-3d0/idle_timer
+		        echo 230 232 255 > /sys/devices/platform/kcal_ctrl.0/kcal
+		        echo 243 > /sys/devices/platform/kcal_ctrl.0/kcal_cont
+		        echo 1 > /sys/devices/platform/kcal_ctrl.0/kcal_enable
+		        echo 0 > /sys/devices/platform/kcal_ctrl.0/kcal_hue
+		        echo 0 > /sys/devices/platform/kcal_ctrl.0/kcal_invert
+		        echo 35 > /sys/devices/platform/kcal_ctrl.0/kcal_min
+		        echo 265 > /sys/devices/platform/kcal_ctrl.0/kcal_stat
+		        echo 253 > /sys/devices/platform/kcal_ctrl.0/kcal_val
+                echo 1750 > /sys/devices/battery.84/wc_charge
+                echo 850 > /sys/devices/battery.84/wc_input
+                echo Y > /sys/module/autosmp/parameters/enabled
 
                 # Bring up all cores online
 		echo 1 > /sys/devices/system/cpu/cpu1/online
