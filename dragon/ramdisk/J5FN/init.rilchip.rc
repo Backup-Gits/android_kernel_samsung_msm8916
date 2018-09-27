@@ -76,3 +76,7 @@ on property:sys.control.netmgr=started
 
 on property:init.svc.netmgrd=restarting
     setprop sys.control.netmgr restarted
+
+#Disable PMTU
+on post-fs
+write /proc/sys/net/ipv4/ip_no_pmtu_disc 1

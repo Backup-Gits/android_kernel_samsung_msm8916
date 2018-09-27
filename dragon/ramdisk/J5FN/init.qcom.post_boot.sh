@@ -636,52 +636,18 @@ case "$target" in
                 # enable thermal core_control now
                 echo 1 > /sys/module/msm_thermal/core_control/enabled
 
-				# Serenity tweaks
-                echo 533333 > /sys/devices/system/cpu/cpufreq/blu_active/hispeed_freq
+                echo "25000 1094400:50000" > /sys/devices/system/cpu/cpufreq/interactive/above_hispeed_delay
+                echo 90 > /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load
+                echo 30000 > /sys/devices/system/cpu/cpufreq/interactive/timer_rate
+                echo 998400 > /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq
+                echo 0 > /sys/devices/system/cpu/cpufreq/interactive/io_is_busy
+                echo "1 800000:85 998400:90 1094400:80" > /sys/devices/system/cpu/cpufreq/interactive/target_loads
+                echo 50000 > /sys/devices/system/cpu/cpufreq/interactive/min_sample_time
+                echo 50000 > /sys/devices/system/cpu/cpufreq/interactive/sampling_down_factor
                 echo 40 > /sys/class/kgsl/kgsl-3d0/idle_timer
 
-				# ADRENO 306 optimization #SUPERNOVA
-                echo "1" > /sys/class/kgsl/kgsl-3d0/wake_nice
-                echo "10" > /sys/class/kgsl/kgsl-3d0/wake_timeout
-                echo "0" > /sys/class/kgsl/kgsl-3d0/bus_split
-                echo "0" > /sys/class/kgsl/kgsl-3d0/force_bus_on
-                echo "0" > /sys/class/kgsl/kgsl-3d0/force_rail_on
-                echo "0" > /sys/class/kgsl/kgsl-3d0/force_clk_on
-                echo "40" > /sys/class/kgsl/kgsl-3d0/idle_timer
-                echo %i > /sys/class/kgsl/kgsl-3d0/devfreq/max_freq
-                echo %i > /sys/class/kgsl/kgsl-3d0/devfreq/min_freq
-                echo %i > /sys/class/kgsl/kgsl-3d0/devfreq/target_freq
-
-				# General Optimization #DRAGON
-                echo 1750 > /sys/devices/battery.84/wc_charge
-                echo 850 > /sys/devices/battery.84/wc_input
-		echo 230 232 255 > /sys/devices/platform/kcal_ctrl.0/kcal
-		echo 243 > /sys/devices/platform/kcal_ctrl.0/kcal_cont
-		echo 1 > /sys/devices/platform/kcal_ctrl.0/kcal_enable
-		echo 0 > /sys/devices/platform/kcal_ctrl.0/kcal_hue
-		echo 0 > /sys/devices/platform/kcal_ctrl.0/kcal_invert
-		echo 35 > /sys/devices/platform/kcal_ctrl.0/kcal_min
-		echo 265 > /sys/devices/platform/kcal_ctrl.0/kcal_stat
-		echo 253 > /sys/devices/platform/kcal_ctrl.0/kcal_val
-                echo Y > /sys/module/autosmp/parameters/enabled
-                echo 1 > /sys/module/msm_thermal/vdd_restriction/enabled
-                echo 256 > /sys/module/lowmemorykiller/parameters/minfree
-                echo 1 > /proc/sys/vm/laptop_mode
-                echo 256 > /proc/sys/kernel/random/write_wakeup_threshold
-                echo 128 > /proc/sys/kernel/random/read_wakeup_threshold
-                echo 1 > /sys/module/msm_thermal/parameters/temp_safety
-                echo Y > /sys/module/msm_thermal/parameters/immediately_limit_stop
-                echo Y > /sys/module/msm_thermal/parameters/enabled
-
-				### added Enable sched guided freq control
-                echo 1 > /sys/devices/system/cpu/cpufreq/interactive/use_sched_load
-                echo 1 > /sys/devices/system/cpu/cpufreq/interactive/use_migration_notif
-				### added
-                echo 200000 > /proc/sys/kernel/sched_freq_inc_notify
-                echo 200000 > /proc/sys/kernel/sched_freq_dec_notify
-
                 # Bring up all cores online
-			echo 1 > /sys/devices/system/cpu/cpu1/online
+		echo 1 > /sys/devices/system/cpu/cpu1/online
 	        echo 1 > /sys/devices/system/cpu/cpu2/online
 	        echo 1 > /sys/devices/system/cpu/cpu3/online
 	        echo 1 > /sys/devices/system/cpu/cpu4/online
@@ -1646,99 +1612,3 @@ case "$target" in
         echo $oem_version > /sys/devices/soc0/image_crm_version
         ;;
 esac
-
-#extra
-#Serenity -keep InCallUI in memory
-PPID=$(pidof com.android.phone)
-echo "-17" > /proc/$PPID/oom_adj
-renice -n -20 $PPID
-PPID=$(pidof com.samsung.android.incallui)
-echo "-17" > /proc/$PPID/oom_adj
-renice -n -20 $PPID
-
-# cat /proc/sys/kernel/random/entropy_avail  must be > 1000
-echo 64 > /proc/sys/kernel/random/read_wakeup_threshold  #(64)
-echo 128 > /proc/sys/kernel/random/write_wakeup_threshold #(128)
-
-echo 250 > /proc/sys/vm/extfrag_threshold #500
-#echo 1 > /proc/sys/vm/highmem_is_dirtyable #0
-
-echo 1 > /proc/sys/net/ipv6/conf/all/disable_ipv6 #(0) maybe needed?
-echo 2 > /proc/sys/net/ipv4/tcp_adv_win_scale #(1)
-#echo 1 > /proc/sys/net/ipv4/tcp_low_latency #(0)
-
-echo 50 > /proc/sys/vm/swappiness #60
-#echo 50 > /sys/fs/cgroup/memory/sw/memory.swappiness #100
-echo 200 > /proc/sys/vm/vfs_cache_pressure #100 (0-1000) free more vfs then page cache
-
-echo 2 > /proc/sys/kernel/sched_window_stats_policy #2/3
-echo 5 > /proc/sys/kernel/sched_ravg_hist_size #3
-#Possible values for this tunable are:
-#0: Just use the most recent window sample of task activity when calculating
-#   task demand.
-#1: Use the maximum value of first M samples found in task's cpu demand
-#   history (sum_history[] array), where M = sysctl_sched_ravg_hist_size
-#2: Use the maximum of (the most recent window sample, average of first M
-#   samples), where M = syctl_sched_ravg_hist_size
-#3. Use average of first M samples, where M = sysctl_sched_ravg_hist_size
-#
-
-# cat /sys/devices/virtual/graphics/fb0/idle_time (2000)
-#debug.mdpcomp.idletime=1000
-echo 1000 > /sys/devices/virtual/graphics/fb0/idle_time #70
-echo 1 > /sys/devices/virtual/graphics/fb0/dyn_pu
-
-#Reset statistics cpu freq histore for all cpu
-echo 1 > /sys/devices/system/cpu/cpufreq/stats/reset
-
-#GPU settings, default pwr level 2 ( max 0 1 2 3 4 5 min)
-cat /sys/class/kgsl/kgsl-3d0/min_pwrlevel > /sys/class/kgsl/kgsl-3d0/default_pwrlevel #5
-#/sys/devices/soc.0/1c00000.qcom,kgsl-3d0/kgsl/kgsl-3d0
-
-#rq affinity (complete io op on request cpu if possible)
-echo 2 > /sys/devices/soc.0/7864900.sdhci/mmc_host/mmc1/mmc1:aaaa/block/mmcblk1/queue/rq_affinity
-echo 2 > /sys/devices/soc.0/7824900.sdhci/mmc_host/mmc0/mmc0:0001/block/mmcblk0/queue/rq_affinity
-echo 2 > /sys/devices/soc.0/7824900.sdhci/mmc_host/mmc0/mmc0:0001/block/mmcblk0/mmcblk0rpmb/queue/rq_affinity
-# increase nr_requests from 128 to 256 for faster io
-echo 256 > /sys/devices/soc.0/7864900.sdhci/mmc_host/mmc1/mmc1:aaaa/block/mmcblk1/queue/nr_requests
-echo 256 > /sys/devices/soc.0/7824900.sdhci/mmc_host/mmc0/mmc0:0001/block/mmcblk0/queue/nr_requests
-echo 256 > /sys/devices/soc.0/7824900.sdhci/mmc_host/mmc0/mmc0:0001/block/mmcblk0/mmcblk0rpmb/queue/nr_requests
-# increase read_ahead_kb from 128 to 256 for faster io
-echo 256 > /sys/devices/soc.0/7864900.sdhci/mmc_host/mmc1/mmc1:aaaa/block/mmcblk1/queue/read_ahead_kb
-echo 256 > /sys/devices/soc.0/7824900.sdhci/mmc_host/mmc0/mmc0:0001/block/mmcblk0/queue/read_ahead_kb
-echo 256 > /sys/devices/soc.0/7824900.sdhci/mmc_host/mmc0/mmc0:0001/block/mmcblk0/mmcblk0rpmb/queue/read_ahead_kb
-
-# disk read ahead buffer (def 128, inode ext4 32) (cat /proc/diskstats, find /sys -name read_ahead_kb)
-# smaller read_ahead causes less dirty pages in cache
-# test speed: busybox hdparm -tT /dev/block/dm-0 (see mount) Clear cache: echo 2 > /proc/sys/vm/drop_caches
-#busybox find /sys -name read_ahead_kb -exec sh -c "echo 256 > {}" \; #(128) (64*4KB blocks)
-#busybox find /sys/fs/ext4 -name inode_readahead_blks -exec sh -c "echo 64 > {}" \; #(32)
-
-# increase digital playback volume from 84, also see /etc/mixer_paths_qrd_sku1.xml
-tinymix "RX1 Digital Volume" 92 # 88
-tinymix "RX2 Digital Volume" 92 # 88
-tinymix "RX3 Digital Volume" 92 # 88
-# increase recording volume from 84
-tinymix "DEC1 Volume" 88
-tinymix "DEC2 Volume" 88
-# high quality sampling, audio.primary.msm8937.so will set it right
-#tinymix "MI2S_RX Format" S24_3LE
-#tinymix "MI2S_RX SampleRate" KHZ_192
-
-# check current : /sys/class/power_supply/battery/input_current_now
-# USB charging little higher
-echo 0 > /sys/class/power_supply/battery/restricted_charging
-#echo 2000000 > /sys/class/power_supply/battery/input_current_max
-echo 2000000 > /sys/class/power_supply/battery/constant_charge_current_max
-#cat /sys/class/power_supply/battery/charge_type -> should be Fast or Taper 
-# allow higher USB charge currents from Dedicated Charging Port
-echo 1 > /sys/class/power_supply/battery/allow_hvdcp3
-echo 1500 > /sys/module/phy_msm_usb/parameters/dcp_max_current
-echo 1800 > /sys/module/phy_msm_usb/parameters/hvdcp_max_current
-echo 1500 > /sys/module/dwc3_msm/parameters/dcp_max_current
-echo 1800 > /sys/module/dwc3_msm/parameters/hvdcp_max_current
-
-# enable light doze too (mLightEnabled=true  mDeepEnabled=true)
-dumpsys deviceidle enable all
-# add whatsapp and gmail to the whitelist
-dumpsys deviceidle whitelist +com.whatsapp +com.google.android.gm
